@@ -17,8 +17,8 @@ def routes():
         f"/api/v1.0/precipitation<br/>"
         f"/api/v1.0/stations<br/>"
         f"/api/v1.0/tobs<br/>"
-        f"/api/v1.0/2017<br/>"
-        f"/api/v1.0/2017/2018")
+        f"/api/v1.0/2016<br/>"
+        f"/api/v1.0/2016/2017")
 
 
 
@@ -40,6 +40,7 @@ def precipitation():
 def stations():
     results2 = list(session.query(station.name).all())
     return jsonify(results2)
+    
 
 
 @app.route('/api/v1.0/tobs')
@@ -61,7 +62,6 @@ def start():
     results_max = session.query(func.max(measurement.tobs)).filter(measurement.date > dt_2016).all()
     results_min = session.query(func.min(measurement.tobs)).filter(measurement.date > dt_2016).all()
     results_avg = session.query(func.avg(measurement.tobs)).filter(measurement.date > dt_2016).all()
-    # gay = list(session.query(func.max(measurement.tobs),func.min(measurement.tobs),func.avg(measurement.tobs).filter(measurement.date > dt_2017)).all()) 
     return (f'Max: {results_max[0]} Min: {results_min[0]} Avg: {results_avg[0]} Temperatures after 2016')
 
 @app.route('/api/v1.0/2016/2017')
